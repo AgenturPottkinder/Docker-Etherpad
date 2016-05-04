@@ -1,0 +1,19 @@
+postgres:
+  image: postgres
+  environment:
+    POSTGRES_PASSWORD: "myPassword"
+    POSTGRES_DB: "pad"
+  volumes:
+    - ./postgres:/var/lib/postgresql/data
+
+etherpad:
+  build: ./etherpad
+  environment:
+    TITLE: "Etherpad: Agentur - Pottkinder"
+    ADMIN_PW: "myAdminPassword"
+    DEFAULT_PAD_TEXT: ""
+    POSTGRES_PASSWORD: "myPassword"
+  links:
+    - postgres:postgresql
+  ports:
+    - 4001:9001
